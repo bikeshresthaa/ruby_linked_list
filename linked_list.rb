@@ -74,44 +74,37 @@ class LinkedList
 
   def contains?(value)
     return nil if @head.nil?
-    contains = false
     current = @head
-
-    while current.next_node != nil
-      if current.value == value
-        contains = true
-        break
-      end
+    while current
+      return true if current.value == value
       current = current.next_node
     end
-    contains
+    false
   end
 
   def find(value)
     return nil if @head.nil?  
     index = 0
     current = @head
-    while current.next_node != nil
+    while current
       if current.value == value
         return index
       end
+      current = current.next_node
       index += 1
     end
-    if index == self.size
-      return nil
-    end
+    nil
   end
 
   def to_s
     return nil if @head.nil?
-
     current = @head
     string = ""
-    while current.next_node != nil
-      string = string + "(#{current.value}) -> "
+    while current
+      string += "(#{current.value}) -> "
       current = current.next_node
     end
-    return string + "nil"
+    string + "nil"
   end
 
   def insert_at(value, index)
@@ -133,19 +126,14 @@ class LinkedList
 
   def remove_at(index)
     return "empty list" if @head.nil?
-
-    current = @head
     if index == 0
       remove_node = current
-      @head = remove_node.next_node
-      remove_node
-    elsif index == 1
-      remove_node = current.next_node
-      current.next_node = remove_node.next_node
-      remove_node
+      @head = @head.next_node
+      return remove_node
     end
+    current = @head
     (index - 1).times do
-      current = current.next_node      
+      current = current.next_node  
     end
     remove_node = current.next_node
     current.next_node = remove_node.next_node
