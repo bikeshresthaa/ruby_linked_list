@@ -33,7 +33,7 @@ class LinkedList
   end
 
   def head
-    return @head
+    return @head.value
   end
 
   def tail
@@ -127,7 +127,7 @@ class LinkedList
   def remove_at(index)
     return "empty list" if @head.nil?
     if index == 0
-      remove_node = current
+      remove_node = @head
       @head = @head.next_node
       return remove_node
     end
